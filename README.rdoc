@@ -1,0 +1,3 @@
+= Cutline Theme for Mephisto Blog
+
+A theme for Mephisto (http://mephistoblog.com) based on the original WordPress design by Chris Pearson. Uses Liquid. Patches and updates welcome.

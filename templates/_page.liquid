@@ -1,0 +1,17 @@
+<div id="content" class="posts">
+  {% unless article == empty %}
+    <h2>{{ article | link_to_article }}</h2>
+    <h4>{{ article.published_at | format_date: 'standard' }} by {{ article.author.login | h }} &middot; {{ article | link_to_comments }}</h4>
+    <div class="entry">
+      {{ article.body }}
+    </div>
+    <div class="clear"></div>
+    {% include 'comments' %}
+  {% else %}
+    <h2 class="page_header">Uh oh.</h2>
+    <div class="entry">
+      <p>Sorry, no posts matched your criteria. Wanna search instead?</p>
+      {% include 'search' %}
+    </div>
+  {% endunless %}
+</div>

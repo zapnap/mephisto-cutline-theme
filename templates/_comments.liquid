@@ -1,0 +1,61 @@
+<div id="comments">
+  {% if article.accept_comments %}
+    <h3 class="comments_headers">{{ article.comments_count | pluralize: "comment" }} so far &darr;</h3>
+  {% endif %}
+  
+  <ul id="comment_list" class="commentlist">
+
+    {% if article.comments_count > 0 %}
+      {% for comment in article.comments %}
+        <li class="comment" id="comment-{{ comment.id }}">
+          <p class="comment_meta comment_author">
+            <strong>{{ comment.author_link }}</strong>
+            <span class="comment_time">// {{ comment.created_at | format_date: 'standard' }}</span>
+          </p>
+          <div class="entry">
+            {{ comment.body }}
+          </div>
+        </li>
+      {% endfor %}
+    {% else %}
+      {% if article.accept_comments %}
+        <li class="comment">
+          <div class="entry">
+            <p>There are no comments yet... You can be the first!</p>
+          </div>
+        </li>
+      {% else %}
+        <li class="comment">
+          <div class="entry">
+            <p>Comments are closed for this article.</p>
+          </div>
+        </li>
+      {% endif %}
+    {% endif %}
+  </ul>
+
+  {% if article.accept_comments %}
+    <h3 id="respond" class="comments_headers">Leave a Comment</h3>
+    {% commentform %}
+      <p>
+        {{ form.name }}
+        <label><strong>Name</strong></label>
+      </p>
+      <p>
+        {{ form.email }}
+        <label><strong>Email</strong></label>
+      </p>
+      <p>
+        {{ form.url }}
+        <label><strong>Website</strong></label>
+      </p>
+      <p>
+        {{ form.body }}
+      </p>
+      <p>
+        {{ form.submit }}
+      </p>
+    {% endcommentform %}
+  {% endif %}
+</div>
+<div class="clear flat"></div>

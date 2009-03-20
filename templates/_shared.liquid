@@ -1,0 +1,21 @@
+<div id="content" class="posts">
+  {% unless articles == empty %}
+    {% for article in articles %}
+      <h2>{{ article | link_to_article }}</h2>
+      <h4>{{ article.published_at | format_date: 'standard' }} by {{ article.author.login | h }} &middot; {{ article | link_to_comments }}</h4>
+      <div class="entry">
+        {{ article.body }}
+      </div>	
+      <p class="tagged">
+        <span class="add_comment">{{ article | link_to_comments }}</span>
+      </p>
+      <div class="clear"></div>
+    {% endfor %}
+  {% else %}
+    <h2 class="page_header center">Not Found</h2>
+    <div class="entry">
+      <p class="center">Sorry, but you are looking for something that isn't here.</p>
+    </div>
+  {% endunless %}
+</div>
+

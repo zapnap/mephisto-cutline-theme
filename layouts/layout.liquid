@@ -1,0 +1,92 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<title>
+  {{ site.title }}
+  {% if site.current_section %}
+    - {{ site.current_section.name }}
+  {% endif %}
+  {% if article %}
+    - {{ article.title }}
+  {% endif %}
+</title>
+<meta name="generator" content="Mephisto" />
+{{ 'style' | stylesheet }}
+<!--[if lte IE 7]>
+  {{ 'ie7' | stylesheet }}
+<![endif]-->
+<!--[if lte IE 6]>
+  {{ 'ie6' | stylesheet }}
+<![endif]-->
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }} feed" href="{{ global_feed }}"/>
+<link rel="alternate" type="application/atom+xml" title="{{ site.title }} comments feed" href="{{ global_comments_feed }}"/>
+</head>
+<body>
+
+<div id="container">
+  <div id="masthead">
+    <h1>
+      <a href="/">{{ site.title }}</a>
+      <h3>{{ site.subtitle }}</h3>
+    </h1>
+  </div>
+
+  <ul id="nav">
+    {% for section in site.sections %}
+      {% if section.articles_count > 0 %}
+        {% if section.is_home %}
+          <li{% if section.current %} class="current"{% endif %}>{{ section | link_to_section }}</li>
+        {% else %}
+          {% if section.is_paged %}
+            <li{% if section.current %} class="current"{% endif %}>{{ section | link_to_section }}</li>
+          {% endif %}
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+    <li class="rss"><a href="/feed/atom.xml">Feed</a></li>
+  </ul>
+	
+  <div id="header_img">
+    <img src="/images/header.jpg" width="770" height="140" alt="{{ site.title }}" />
+  </div>
+
+  <div id="content_box">
+    {{ content_for_layout }}
+
+    <div id="sidebar">
+      <ul class="sidebar_list">
+        <li class="widget">
+          <h2>Search</h2>
+          <form id="search-form" method="get" action="/search">
+            <input class="text" type="text" id="q" value="" name="q" onfocus="if (this.value == 'To search, type and hit enter') {this.value = '';}" onblur="if (this.value == '') {this.value = 'To search, type and hit enter';}"/>
+          </form>
+        </li>
+        <li class="widget">
+          <h2>Recent Entries</h2>
+          <ul>
+            {% for article in site.latest_articles %}
+              <li>{{ article | link_to_article }} <span class="recent_date">({{ article.published_at | format_date: 'stub', true }})</span></li>
+            {% endfor %}
+          </ul>
+        </li>
+        <li class="widget">
+          <h2>Recent Comments</h2>
+          <ul>
+            {% for comment in site.latest_comments %}
+              <li>{{ comment.author_link }} on <a href="{{ comment.url }}#comment-{{ comment.id }}">{{ comment.title }}</a></li>
+            {% endfor %}
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+  </div>
+
+  <div id="footer">
+    <p>&copy; 2006&ndash;2009 {{ site.title }} &mdash; <a href="http://cutline.tubetorial.com/">Cutline</a> by <a href="http://www.tubetorial.com">Chris Pearson</a> &mdash; Adapted to <a href="http://mephistoblog.com">Mephisto</a> by <a href="http://blog.zerosum.org">Nick Plante</a></p>
+  </div>
+
+</div>
+</body>
+</html>

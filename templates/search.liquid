@@ -1,0 +1,8 @@
+<h2>Search results for <strong>"{{search_string}}"</strong></h2>
+{% unless articles == empty %}
+  {% include 'shared' %}
+{% else %}
+  <div class="entry">
+    Nothing matched your search criteria. Sorry.
+  </div>
+{% endunless %}
